@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: authui
+    labels:
+       app: authui
+spec:
+  replicas: 1
+  selector:
+        matchLabels:
+            app: authui
+  template:
+        metadata:
+          labels:
+            app: authui
+        spec:
+          containers:
+           - name: authui
+             image: abhisheknn/auth:latest
+             ports:
+             - containerPort: 9443
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: authuisvc
+spec:
+    ports:
+    - name: "https"
+      port: 9443
+      targetPort: 9443
+      nodePort: 32650   
+    selector:
+      app: authui
+    type: NodePort  
