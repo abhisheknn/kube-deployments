@@ -17,6 +17,7 @@ spec:
           containers:
            - name: authui
              image: abhisheknn/auth:latest
+             imagePullPolicy: Never 	
              ports:
              - containerPort: 9443
 ---
